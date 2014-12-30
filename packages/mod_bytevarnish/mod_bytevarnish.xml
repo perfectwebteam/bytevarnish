@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.3" type="module" method="upgrade" client="administrator">
+	<name>MOD_BYTEVARNISH</name>
+	<author>Perfect Web Team - Sander Potjer</author>
+	<creationDate>December 2014</creationDate>
+	<copyright>Copyright (C) 2014. All rights reserved.</copyright>
+	<license>GNU General Public License version 3 or later</license>
+	<authorEmail>hallo@perfectwebteam.nl</authorEmail>
+	<authorUrl>www.perfectwebteam.nl</authorUrl>
+	<version>0.0.1</version>
+	<description>MOD_BYTEVARNISH_XML_DESCRIPTION</description>
+	<scriptfile>script.php</scriptfile>
+
+	<files>
+		<filename module="mod_bytevarnish">mod_bytevarnish.php</filename>
+		<folder>tmpl</folder>
+	</files>
+
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.mod_bytevarnish.sys.ini</language>
+	</languages>
+</extension>

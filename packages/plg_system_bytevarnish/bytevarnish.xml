@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.3" type="plugin" group="system" method="upgrade">
+	<name>PLG_SYSTEM_BYTEVARNISH</name>
+	<author>Perfect Web Team - Sander Potjer</author>
+	<creationDate>December 2014</creationDate>
+	<copyright>Copyright (C) 2014. All rights reserved.</copyright>
+	<license>GNU General Public License version 3 or later</license>
+	<authorEmail>hallo@perfectwebteam.nl</authorEmail>
+	<authorUrl>www.perfectwebteam.nl</authorUrl>
+	<version>0.0.1</version>
+	<description>PLG_SYSTEM_BYTEVARNISH_XML_DESCRIPTION</description>
+	<scriptfile>script.php</scriptfile>
+
+	<files>
+		<filename plugin="bytevarnish">bytevarnish.php</filename>
+	</files>
+
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.plg_system_bytevarnish.ini</language>
+		<language tag="en-GB">en-GB/en-GB.plg_system_bytevarnish.sys.ini</language>
+	</languages>
+
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+
+				<field
+					name="enabled"
+					type="radio"
+					class="btn-group btn-group-yesno"
+					default="1"
+					label="PLG_SYSTEM_BYTEVARNISH_FIELD_ENABLED_LABEL"
+					description="PLG_SYSTEM_BYTEVARNISH_FIELD_ENABLED_DESC"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="autopurge"
+					type="radio"
+					class="btn-group btn-group-yesno"
+					default="1"
+					label="PLG_SYSTEM_BYTEVARNISH_FIELD_AUTOPURGE_LABEL"
+					description="PLG_SYSTEM_BYTEVARNISH_FIELD_AUTOPURGE_DESC"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="maxage"
+					type="text"
+					default="60"
+					label="PLG_SYSTEM_BYTEVARNISH_FIELD_MAXAGE_LABEL"
+					description="PLG_SYSTEM_BYTEVARNISH_FIELD_MAXAGE_DESC"
+					filter="integer"
+				/>
+
+				<field
+					name="excluded_spacer"
+					type="spacer"
+					label="PLG_SYSTEM_BYTEVARNISH_FIELD_EXCPLUDED_SPACER_LABEL"
+				/>
+
+				<field
+					name="excluded_menus"
+					type="menuitem"
+					label="PLG_SYSTEM_BYTEVARNISH_FIELD_EXCLUDED_MENUS_LABEL"
+					description="PLG_SYSTEM_BYTEVARNISH_FIELD_EXCLUDED_MENUS_DESC"
+					multiple="multiple"
+				/>
+
+				<field
+					name="excluded_components"
+					type="sql"
+					default="com_users"
+					label="PLG_SYSTEM_BYTEVARNISH_FIELD_EXCLUDED_COMPONENTS_LABEL"
+					description="PLG_SYSTEM_BYTEVARNISH_FIELD_EXCLUDED_COMPONENTS_DESC"
+					query="SELECT element AS value, element AS excluded_components FROM #__extensions WHERE type='component'"
+					multiple="multiple"
+				/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>
