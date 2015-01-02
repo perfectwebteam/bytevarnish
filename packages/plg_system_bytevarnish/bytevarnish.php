@@ -114,6 +114,13 @@ class PlgSystemByteVarnish extends JPlugin
 			return false;
 		}
 
+		// Only continue for com_content
+		$option = JFactory::getApplication()->input->get('option', '', 'cmd');
+		if($option !== 'com_content')
+		{
+			return false;
+		}
+
 		// Get the menu items
 		$menu 	= JApplication::getInstance('site')->getMenu();
 		$items 	= $menu->getMenu();
