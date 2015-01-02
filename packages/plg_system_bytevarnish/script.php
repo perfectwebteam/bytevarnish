@@ -31,6 +31,7 @@ class plgSystemByteVarnishInstallerScript
 
 		$fields = array(
 		    $db->quoteName('enabled') . ' = 1',
+		    $db->quoteName('access') . ' = 3',
 		    $db->quoteName('params') . ' = ' . $db->quote('{"enabled":"1","autopurge":"1","maxage":60,"excluded_components":["com_users"]}'),
 		);
 
