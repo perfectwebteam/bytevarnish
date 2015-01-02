@@ -41,7 +41,8 @@ class mod_ByteVarnishInstallerScript
 			$db->quoteName('position') . ' = ' . $db->quote('status'),
 			$db->quoteName('ordering') . ' = 100',
 			$db->quoteName('published') . ' = 1',
-			$db->quoteName('showtitle') . ' = 0'
+			$db->quoteName('showtitle') . ' = 0',
+			$db->quoteName('access') . ' = 3'
 		);
 
 		$conditions = array(
