@@ -23,17 +23,17 @@ De extensie is verder naar wens te configureren. Dit kan door de plugin instelli
 
 ## Algemene opties
 
-#### Enable Byte.nl Varnish
+#### Schakel Byte.nl Varnish in
 Hiermee wordt de Byte Varnish caching in- en uitgeschakeld vanuit Joomla. Als de caching is ingeschakeld is er een `Cache-control: public` HTTP-header actief op de site. Als de caching is uitgeschakeld is dit een `Cache-control: no-cache` HTTP-header waardoor er geen pagina's meer aan de Varnish cache worden toegevoegd. Pagina's die reeds in de Varnish cache zitten blijven actief totdat deze geleegd worden.
 
 Standaard waarde: `Ja`
 
-#### Auto-Purge
+#### Automatisch cache legen
 Hiermee wordt het automatisch legen van pagina's uit de Varnish cache na aanpassing van een artikel in- en uitgeschakeld. Als deze functie is ingeschakeld worden de pagina's in de Varnish cache waarop het volledige Joomla artikel en de introtekst zichtbaar is geleegd. De plugin detecteert automatisch om welke pagina's het gaat en zal deze legen in de Varnish cache.
 
 Standaard waarde: `Ja`
 
-#### TTL (max-age) in minutes
+#### TTL (max-age) in minuten
 Hier voer je de tijd in minuten in die gebruikt wordt voor de 'houdbaarheid' van een pagina in de Varnish cache. Bij een waarde van `60` wordt na 60 minuten bij een nieuwe pagina request de pagina opnieuw in de Varnish cache geplaatst. De ingevoerde tijd in minuten wordt door de plugin omgezet in seconden en wordt gebruikt voor de `max-age` HTTP-header van de site.
 
 Standaard waarde: `60`
@@ -41,12 +41,12 @@ Standaard waarde: `60`
 ## Opties voor uitsluiten pagina caching
 Standaard zorgt de plugin er voor dat als de bezoeker inlogt er een `NO_CACHE` cookie wordt geplaatst. Hierdoor zal een ingelogde bezoeker geen pagina's uit de Varnish cache krijgen maar direct van de webserver. Het is goed mogelijk dat daarnaast bepaalde pagina's uitgesloten moeten worden van caching voor alle bezoekers van de website. Denk aan pagina's met dynamische content, waar ingelogd wordt of die beveiligd zijn. De plugin heeft hiervoor diverse opties.
 
-#### Excluded Menu-Items
+#### Menu-items uitsluiten
 Hiermee kan je specifieke menu-items uitsluiten van caching. Selecteer uit de dropdown één of meerdere menu-items die moeten worden uitgesloten. Op deze pagina's wordt dan de `Cache-control: no-cache` HTTP-header actief. 
 
 Standaard waarde: `-`
 
-#### Excluded Components
+#### Componenten uitsluiten
 Hiermee kan je specifieke componenten compleet uitsluiten van caching. Selecteer uit de dropdown één of meerdere componenten die moeten worden uitgesloten. Op deze pagina's wordt dan de `Cache-control: no-cache` HTTP-header actief. Standaard is `com_users` hier ingesteld, maar bijvoorbeeld formulier extensies moeten vaak ook voor de juiste werking worden uitgesloten. 
 
 Standaard waarde: `com_users`
