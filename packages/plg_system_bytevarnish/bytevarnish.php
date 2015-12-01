@@ -58,6 +58,8 @@ class PlgSystemByteVarnish extends JPlugin
 			if (in_array($component, $ignorecomponents))
 			{
 				JResponse::setHeader('Cache-Control', 'no-cache', true);
+
+				return false;
 			}
 
 			// Check if menu-item is excluded from caching
@@ -67,6 +69,8 @@ class PlgSystemByteVarnish extends JPlugin
 			if (in_array($menu->id, $ignoremenus))
 			{
 				JResponse::setHeader('Cache-Control', 'no-cache', true);
+
+				return false;
 			}
 		}
 
