@@ -57,13 +57,13 @@ class mod_ByteVarnishInstallerScript
 		$query = $db->getQuery(true);
 
 		$columns = array('moduleid', 'menuid');
-		$values = array($moduleId, 0);
+		$values  = array($moduleId, 0);
 
 		// Prepare the insert query.
 		$query
-		    ->insert($db->quoteName('#__modules_menu'))
-		    ->columns($db->quoteName($columns))
-		    ->values(implode(',', $values));
+			->insert($db->quoteName('#__modules_menu'))
+			->columns($db->quoteName($columns))
+			->values(implode(',', $values));
 
 		$db->setQuery($query);
 		$result = $db->execute();

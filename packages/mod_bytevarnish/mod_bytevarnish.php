@@ -11,13 +11,13 @@
 defined('_JEXEC') or die;
 
 // Get Variables
-$input			= JFactory::getApplication()->input;
-$hidemainmenu	= $input->getBool('hidemainmenu');
-$task			= $input->getCmd('task');
+$input        = JFactory::getApplication()->input;
+$hidemainmenu = $input->getBool('hidemainmenu');
+$task         = $input->getCmd('task');
 
 // Prepare PURGE url
 $url = JURI::getInstance();
-$url->setVar('varnish','purge');
+$url->setVar('varnish', 'purge');
 $url = $url->toString();
 
 // Load layout file

@@ -12,11 +12,11 @@ defined('_JEXEC') or die;
 ?>
 
 <div class="btn-group bytevarnishpurge">
-	<?php if ($task == 'edit' || $task == 'editA' || $hidemainmenu):?>
+	<?php if ($task == 'edit' || $task == 'editA' || $hidemainmenu): ?>
 		<span class="icon-lightning"></span> <?php echo JText::_('MOD_BYTEVARNISH_PURGE'); ?>
 	<?php else: ?>
 		<a href="<?php echo($url); ?>" class="bytevarnishpurge_link">
 			<span class="icon-lightning"></span> <?php echo JText::_('MOD_BYTEVARNISH_PURGE'); ?>
 		</a>
-	<?php endif;?>
+	<?php endif; ?>
 </div>

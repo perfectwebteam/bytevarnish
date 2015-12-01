@@ -30,13 +30,13 @@ class plgSystemByteVarnishInstallerScript
 		$query = $db->getQuery(true);
 
 		$fields = array(
-		    $db->quoteName('enabled') . ' = 1',
-		    $db->quoteName('params') . ' = ' . $db->quote('{"enabled":"1","autopurge":"1","maxage":60,"excluded_components":["com_users"]}'),
+			$db->quoteName('enabled') . ' = 1',
+			$db->quoteName('params') . ' = ' . $db->quote('{"enabled":"1","autopurge":"1","maxage":60,"excluded_components":["com_users"]}'),
 		);
 
 		$conditions = array(
-		    $db->quoteName('element') . ' = ' . $db->quote('bytevarnish'),
-		    $db->quoteName('type') . ' = ' . $db->quote('plugin'),
+			$db->quoteName('element') . ' = ' . $db->quote('bytevarnish'),
+			$db->quoteName('type') . ' = ' . $db->quote('plugin'),
 		);
 
 		$query->update($db->quoteName('#__extensions'))->set($fields)->where($conditions);

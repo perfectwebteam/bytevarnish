@@ -24,8 +24,8 @@ class PlgSystemByteVarnish extends JPlugin
 	 */
 	public function onBeforeRender()
 	{
-		$app 	= JFactory::getApplication();
-		$input 	= $app->input;
+		$app   = JFactory::getApplication();
+		$input = $app->input;
 
 		// Perform these actions in frontend only
 		if ($app->isSite())
@@ -37,7 +37,7 @@ class PlgSystemByteVarnish extends JPlugin
 			$enabled = (int) $this->params->get('enabled', 1);
 
 			// If disabled, set header to no-cache and return
-			if(!$enabled)
+			if (!$enabled)
 			{
 				JResponse::setHeader('Cache-Control', 'no-cache', true);
 
@@ -45,26 +45,26 @@ class PlgSystemByteVarnish extends JPlugin
 			}
 
 			// Get max-age setting
-			$maxage 			= (int) $this->params->get('maxage', 60);
-			$maxage 			= $maxage*60;
+			$maxage = (int) $this->params->get('maxage', 60);
+			$maxage = $maxage * 60;
 
 			// Set caching site headers
-			JResponse::setHeader('Cache-Control', 'public, max-age='.$maxage, true);
+			JResponse::setHeader('Cache-Control', 'public, max-age=' . $maxage, true);
 
 			// Check if component is excluded from caching
-			$ignorecomponents 	= $this->params->get('excluded_components', array('com_users'));
-			$component 			= $input->get('option');
+			$ignorecomponents = $this->params->get('excluded_components', array('com_users'));
+			$component        = $input->get('option');
 
-			if(in_array($component, $ignorecomponents))
+			if (in_array($component, $ignorecomponents))
 			{
 				JResponse::setHeader('Cache-Control', 'no-cache', true);
 			}
 
 			// Check if menu-item is excluded from caching
-			$ignoremenus 		= $this->params->get('excluded_menus', array());
-			$menu 				= $app->getMenu()->getActive();
+			$ignoremenus = $this->params->get('excluded_menus', array());
+			$menu        = $app->getMenu()->getActive();
 
-			if(in_array($menu->id, $ignoremenus))
+			if (in_array($menu->id, $ignoremenus))
 			{
 				JResponse::setHeader('Cache-Control', 'no-cache', true);
 			}
@@ -76,7 +76,7 @@ class PlgSystemByteVarnish extends JPlugin
 			$varnish = $input->get('varnish', '');
 
 			// Purge the site cache
-			if($varnish == 'purge')
+			if ($varnish == 'purge')
 			{
 				$this->purge();
 			}
@@ -85,23 +85,23 @@ class PlgSystemByteVarnish extends JPlugin
 		return;
 	}
 
-    /**
+	/**
 	 * Triggered when user logs in, set NO_CACHE cookie
 	 */
 	public function onUserLogin($user, $options)
-    {
+	{
 		// Set Cookie
-		JFactory::getApplication()->input->cookie->set('NO_CACHE', true, time()+3600, '/');
-    }
+		JFactory::getApplication()->input->cookie->set('NO_CACHE', true, time() + 3600, '/');
+	}
 
-    /**
+	/**
 	 * Triggered when user logs out, delete NO_CACHE cookie
 	 */
-    public function onUserLogout($user, $options)
-    {
+	public function onUserLogout($user, $options)
+	{
 		// Remove Cookie
-		JFactory::getApplication()->input->cookie->set('NO_CACHE', false, time()-3600, '/');
-    }
+		JFactory::getApplication()->input->cookie->set('NO_CACHE', false, time() - 3600, '/');
+	}
 
 	/**
 	 * Triggered after saving content, purge page cache
@@ -109,44 +109,44 @@ class PlgSystemByteVarnish extends JPlugin
 	public function onContentAfterSave($context, $article, $isNew)
 	{
 		// Stop auto purge if not enabled
-		if($this->params->get('autopurge', 1) == 0)
+		if ($this->params->get('autopurge', 1) == 0)
 		{
 			return false;
 		}
 
 		// Only continue for com_content
 		$option = JFactory::getApplication()->input->get('option', '', 'cmd');
-		if($option !== 'com_content')
+		if ($option !== 'com_content')
 		{
 			return false;
 		}
 
 		// Get the menu items
-		$menu 	= JApplication::getInstance('site')->getMenu();
-		$items 	= $menu->getMenu();
+		$menu  = JApplication::getInstance('site')->getMenu();
+		$items = $menu->getMenu();
 
 		// Placeholder for ItemIds to purge
 		$itemIds = array();
 
 		// Loop through menu items
-		foreach($items as $item)
+		foreach ($items as $item)
 		{
 			// Get all com_content items
 			if (strpos($item->link, 'option=com_content') !== false)
 			{
 				// Parse the menu link
 				parse_str($item->link, $parts);
-				$view 	= $parts['view'];
-				$id 	= $parts['id'];
+				$view = $parts['view'];
+				$id   = $parts['id'];
 
 				// Retrieve menu items to article
-				if(($view == 'article') && ($id == $article->id))
+				if (($view == 'article') && ($id == $article->id))
 				{
 					$itemIds[$item->id] = $view;
 				}
 
 				// Retrieve menu items to category of article
-				if(($view == 'category') && ($id == $article->catid))
+				if (($view == 'category') && ($id == $article->catid))
 				{
 					$itemIds[$item->id] = $view;
 				}
@@ -154,13 +154,13 @@ class PlgSystemByteVarnish extends JPlugin
 		}
 
 		// Purge the collected menu items
-		foreach($itemIds as $itemId=>$type)
+		foreach ($itemIds as $itemId => $type)
 		{
 			// Purge article view in category
-			if($type == 'category')
+			if ($type == 'category')
 			{
-				$suffix = '/'.$article->id.'-'.$article->alias;
-				$page = $this->route($itemId, $suffix);
+				$suffix = '/' . $article->id . '-' . $article->alias;
+				$page   = $this->route($itemId, $suffix);
 				$this->purge($page);
 			}
 
@@ -178,7 +178,7 @@ class PlgSystemByteVarnish extends JPlugin
 		$router = JApplication::getInstance('site')->getRouter();
 
 		// Set URL
-		$url = 'index.php?Itemid='.$itemId;
+		$url = 'index.php?Itemid=' . $itemId;
 
 		// Build route
 		$uri = $router->build($url);
@@ -195,9 +195,9 @@ class PlgSystemByteVarnish extends JPlugin
 		$url = htmlspecialchars($url);
 
 		// Add suffix if set
-		if($suffix)
+		if ($suffix)
 		{
-			$url = $url.$suffix;
+			$url = $url . $suffix;
 		}
 
 		return $url;
@@ -211,7 +211,7 @@ class PlgSystemByteVarnish extends JPlugin
 		// Prepare log file
 		JLog::addLogger(
 			array(
-				'text_file' => 'plg_bytevarnish.php',
+				'text_file'         => 'plg_bytevarnish.php',
 				'text_entry_format' => '{DATETIME} {PRIORITY} {CATEGORY} {MESSAGE}'
 			),
 			JLog::ALL,
@@ -222,15 +222,15 @@ class PlgSystemByteVarnish extends JPlugin
 		$host = rtrim(JURI::root(), '/');
 
 		// Set URL for specific page purge
-		if($page)
+		if ($page)
 		{
-			$url = $host.$page;
+			$url = $host . $page;
 		}
 
 		// General site purge
-		if(empty($page))
+		if (empty($page))
 		{
-			$url = $host.'/.*';
+			$url = $host . '/.*';
 		}
 
 		// Perform purge
@@ -241,25 +241,25 @@ class PlgSystemByteVarnish extends JPlugin
 		$rv = curl_exec($ch);
 
 		// Purge succesful?
-		if($rv !== false)
+		if ($rv !== false)
 		{
 			// Display success & log
-			JLog::add($url.' PURGED', JLog::INFO, 'PURGE');
+			JLog::add($url . ' PURGED', JLog::INFO, 'PURGE');
 
-			if($page)
+			if ($page)
 			{
-				JFactory::getApplication()->enqueueMessage(JText::_('PLG_SYSTEM_BYTEVARNISH_MESSAGE_PURGED_PAGE').' '.$url, 'message');
+				JFactory::getApplication()->enqueueMessage(JText::_('PLG_SYSTEM_BYTEVARNISH_MESSAGE_PURGED_PAGE') . ' ' . $url, 'message');
 			}
 			else
 			{
-				JFactory::getApplication()->enqueueMessage(JText::_('PLG_SYSTEM_BYTEVARNISH_MESSAGE_PURGED_SITE').' '.$host, 'message');
+				JFactory::getApplication()->enqueueMessage(JText::_('PLG_SYSTEM_BYTEVARNISH_MESSAGE_PURGED_SITE') . ' ' . $host, 'message');
 			}
 		}
 		else
 		{
 			// Display error & log
-			JLog::add($url.' ERROR: '.curl_error($ch), JLog::WARNING, 'PURGE');
-			JFactory::getApplication()->enqueueMessage(JText::_('PLG_SYSTEM_BYTEVARNISH_MESSAGE_PURGED_ERROR').' '.curl_error($ch), 'error');
+			JLog::add($url . ' ERROR: ' . curl_error($ch), JLog::WARNING, 'PURGE');
+			JFactory::getApplication()->enqueueMessage(JText::_('PLG_SYSTEM_BYTEVARNISH_MESSAGE_PURGED_ERROR') . ' ' . curl_error($ch), 'error');
 		}
 	}
 }
