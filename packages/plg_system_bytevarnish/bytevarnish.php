@@ -132,6 +132,9 @@ class PlgSystemByteVarnish extends JPlugin
 		// Placeholder for ItemIds to purge
 		$itemIds = array();
 
+		// Always purge homepage
+		$itemIds[] = $menu->getDefault()->id;
+
 		// Loop through menu items
 		foreach ($items as $item)
 		{
