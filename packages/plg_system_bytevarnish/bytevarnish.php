@@ -110,53 +110,73 @@ class PlgSystemByteVarnish extends JPlugin
 	/**
 	 * Triggered after saving content, purge page cache
 	 */
-	public function onContentAfterSave($context, $article, $isNew)
+	public function onContentAfterSave($context, $item, $isNew)
 	{
+		// Only continue for com_content & com_menu
+		if ($context != 'com_content.article' && $context != 'com_menus.item')
+		{
+			return true;
+		}
+
 		// Stop auto purge if not enabled
 		if ($this->params->get('autopurge', 1) == 0)
 		{
-			return false;
+			return true;
 		}
-
-		// Only continue for com_content
-		$option = JFactory::getApplication()->input->get('option', '', 'cmd');
-		if ($option !== 'com_content')
-		{
-			return false;
-		}
-
-		// Get the menu items
-		$menu  = JApplication::getInstance('site')->getMenu();
-		$items = $menu->getMenu();
 
 		// Placeholder for ItemIds to purge
 		$itemIds = array();
 
-		// Always purge homepage
-		$itemIds[] = $menu->getDefault()->id;
+		// The menu
+		$menu = JApplication::getInstance('site')->getMenu();
 
-		// Loop through menu items
-		foreach ($items as $item)
+		// Purge com_content
+		if ($context == 'com_content.article')
 		{
-			// Get all com_content items
-			if (strpos($item->link, 'option=com_content') !== false)
+			// Get the menu items
+			$items = $menu->getMenu();
+
+			// Always purge homepage
+			$itemIds[] = $menu->getDefault()->id;
+
+			// Loop through menu items
+			foreach ($items as $item)
 			{
-				// Parse the menu link
-				parse_str($item->link, $parts);
-				$view = $parts['view'];
-				$id   = $parts['id'];
-
-				// Retrieve menu items to article
-				if (($view == 'article') && ($id == $article->id))
+				// Get all com_content items
+				if (strpos($item->link, 'option=com_content') !== false)
 				{
-					$itemIds[$item->id] = $view;
-				}
+					// Parse the menu link
+					parse_str($item->link, $parts);
+					$view = $parts['view'];
+					$id   = $parts['id'];
 
-				// Retrieve menu items to category of article
-				if (($view == 'category') && ($id == $article->catid))
-				{
-					$itemIds[$item->id] = $view;
+					// Retrieve menu items to article
+					if (($view == 'article') && ($id == $item->id))
+					{
+						$itemIds[$item->id] = $view;
+					}
+
+					// Retrieve menu items to category of article
+					if (($view == 'category') && ($id == $item->catid))
+					{
+						$itemIds[$item->id] = $view;
+					}
 				}
+			}
+		}
+
+		// Purge com_menus
+		if ($context == 'com_menus.item')
+		{
+			// Current menu item
+			$itemIds[$item->id] = 'item';
+
+			// Get the childs of the menu item
+			$items = $menu->getItems('parent_id', $item->id);
+
+			foreach ($items as $item)
+			{
+				$itemIds[$item->id] = 'item';
 			}
 		}
 
@@ -166,7 +186,7 @@ class PlgSystemByteVarnish extends JPlugin
 			// Purge article view in category
 			if ($type == 'category')
 			{
-				$suffix = '/' . $article->id . '-' . $article->alias;
+				$suffix = '/' . $item->id . '-' . $item->alias;
 				$page   = $this->route($itemId, $suffix);
 				$this->purge($page);
 			}
