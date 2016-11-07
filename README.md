@@ -1,6 +1,6 @@
 # Snelle instructies
 
-1. Download de [Byte Varnish extensie voor Joomla!](https://raw.githubusercontent.com/perfectwebteam/bytevarnish/master/pkg_bytevarnish.zip)
+1. Download de [Byte Varnish extensie voor Joomla!](https://github.com/perfectwebteam/bytevarnish/releases)
 2. Installeer de extensie via het extensiebeheer van Joomla
 3. Klaar! Controleer of alles goed werkt.
 
@@ -15,7 +15,7 @@ De Byte Varnish extensie bestaat uit twee delen:
 1. Module; `mod_bytevarnish`
 2. Plugin; `plg_system_bytevarnish`
 
-Beide zitten verwerkt in de extensie `pkg_bytevarnish.zip` dat [hier](https://raw.githubusercontent.com/perfectwebteam/bytevarnish/master/pkg_bytevarnish.zip) te downloaden is. Dit zip bestand installeer je in Joomla via `Extensies` -> `Extensiebeheer`, tabblad `Installeren`. Selecteer het zip bestand en klik op `Uploaden & installeren`. De module en plugin worden nu geïnstalleerd, automatisch geactiveerd en gepubliceerd op de juiste positie. De extensie is nu in werking en de site maakt gebruik van het Byte Varnish Cluster. Je kan de extensie verder naar wens configureren.
+Beide zitten verwerkt in de extensie `pkg_bytevarnish.zip` dat [hier](https://github.com/perfectwebteam/bytevarnish/releases) te downloaden is. Dit zip bestand installeer je in Joomla via `Extensies` -> `Extensiebeheer`, tabblad `Installeren`. Selecteer het zip bestand en klik op `Uploaden & installeren`. De module en plugin worden nu geïnstalleerd, automatisch geactiveerd en gepubliceerd op de juiste positie. De extensie is nu in werking en de site maakt gebruik van het Byte Varnish Cluster. Je kan de extensie verder naar wens configureren.
 
 # Configuratie
 
