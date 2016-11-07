@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="3.3" type="package">
-	<name>Byte Varnish</name>
-	<author>Perfect Web Team - Sander Potjer</author>
-	<creationDate>December 2014</creationDate>
-	<copyright>Copyright (C) 2015. All rights reserved.</copyright>
-	<license>GNU General Public License version 3 or later</license>
-	<authorEmail>hallo@perfectwebteam.nl</authorEmail>
-	<authorUrl>www.perfectwebteam.nl</authorUrl>
-	<packagename>bytevarnish</packagename>
-	<version>0.0.1</version>
-	<description>Byte.nl Varnish Extensions</description>
+<extension version="3.3" type="package" method="upgrade">
+    <name>Byte Varnish</name>
+    <author>Perfect Web Team - Sander Potjer</author>
+    <creationDate>November 2016</creationDate>
+    <copyright>Copyright (C) 2016. All rights reserved.</copyright>
+    <license>GNU General Public License version 3 or later</license>
+    <authorEmail>hallo@perfectwebteam.nl</authorEmail>
+    <authorUrl>www.perfectwebteam.nl</authorUrl>
+    <version>0.0.2</version>
+    <packagename>bytevarnish</packagename>
+    <description>Byte.nl Varnish Extensions</description>
 
-	<files folder="packages">
-		<file type="module" id="mod_bytevarnish" >mod_bytevarnish.zip</file>
-		<file type="plugin" id="plg_system_bytevarnish" group="system">plg_system_bytevarnish.zip</file>
-	</files>
- </extension>
+    <files folder="packages">
+        <file type="module" id="mod_bytevarnish">mod_bytevarnish.zip</file>
+        <file type="plugin" id="plg_system_bytevarnish" group="system">plg_system_bytevarnish.zip</file>
+    </files>
+</extension>
