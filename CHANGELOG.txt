@@ -11,6 +11,9 @@ $ -> Language fix or change
 - -> Removed
 ! -> Note
 
+-------------------- 0.0.3 Release [XX-YYY-2017] ------------------
+# -> Fix incorrect backend purge url when using Language Domains plugin
+
 -------------------- 0.0.2 Release [07-Nov-2016] ------------------
 + -> Purge cache after menu change
 + -> Purge homepage on article save

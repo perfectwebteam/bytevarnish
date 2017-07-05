@@ -15,10 +15,20 @@ $input        = JFactory::getApplication()->input;
 $hidemainmenu = $input->getBool('hidemainmenu');
 $task         = $input->getCmd('task');
 
-// Prepare PURGE url
-$url = JURI::getInstance();
-$url->setVar('varnish', 'purge');
-$url = $url->toString();
+// Prepare Purge url
+$uri = JUri::getInstance();
+
+$uri->setVar('varnish', 'purge');
+
+// Filter SEF language from path if set
+$path        = $uri->getPath();
+$languageTag = JFactory::getLanguage()->getTag();
+$languages   = JLanguageHelper::getLanguages('lang_code');
+
+$uri->setPath(str_replace($languages[$languageTag]->sef, '', $path));
+
+// Compile Purge url
+$url = $uri->toString();
 
 // Load layout file
 require JModuleHelper::getLayoutPath('mod_bytevarnish', $params->get('layout', 'default'));
