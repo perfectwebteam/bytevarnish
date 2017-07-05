@@ -1,0 +1,19 @@
+Changelog for Byte Varnish
+https://github.com/perfectwebteam/bytevarnish
+-------------------------------------------------------------------
+
+Legend:
+* -> Security Fix
+# -> Issue Fix
+$ -> Language fix or change
++ -> Addition
+^ -> Change
+- -> Removed
+! -> Note
+
+-------------------- 0.0.2 Release [07-Nov-2016] ------------------
++ -> Purge cache after menu change
++ -> Purge homepage on article save
+
+-------------------- 1.0.0 Release [12-Feb-2015] ------------------
+!-> Initial release of Byte Varnish
