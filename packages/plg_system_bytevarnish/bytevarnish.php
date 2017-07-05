@@ -26,6 +26,7 @@ class PlgSystemByteVarnish extends JPlugin
 	{
 		$app   = JFactory::getApplication();
 		$doc   = JFactory::getDocument()->getType();
+		$user  = JFactory::getUser();
 		$input = $app->input;
 
 		// Perform these actions in frontend only
@@ -39,6 +40,14 @@ class PlgSystemByteVarnish extends JPlugin
 
 			// If disabled, set header to no-cache and return
 			if (!$enabled)
+			{
+				JResponse::setHeader('Cache-Control', 'no-cache', true);
+
+				return false;
+			}
+
+			// Prevent pages from logged-in users ending up in cache
+			if (!$user->guest)
 			{
 				JResponse::setHeader('Cache-Control', 'no-cache', true);
 
