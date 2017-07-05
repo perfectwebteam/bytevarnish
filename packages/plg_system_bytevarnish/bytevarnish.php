@@ -25,10 +25,11 @@ class PlgSystemByteVarnish extends JPlugin
 	public function onBeforeRender()
 	{
 		$app   = JFactory::getApplication();
+		$doc   = JFactory::getDocument()->getType();
 		$input = $app->input;
 
 		// Perform these actions in frontend only
-		if ($app->isSite())
+		if ($app->isSite() && $doc == 'html')
 		{
 			// Override Joomla Caching headers
 			JResponse::allowCache(true);
@@ -75,7 +76,7 @@ class PlgSystemByteVarnish extends JPlugin
 		}
 
 		// Perform these actions in backend only, and if logged in
-		if ($app->isAdmin() && JFactory::getUser()->id)
+		if ($app->isAdmin() && $doc == 'html' && JFactory::getUser()->id)
 		{
 			$varnish = $input->get('varnish', '');
 

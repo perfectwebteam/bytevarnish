@@ -15,6 +15,7 @@ $ -> Language fix or change
 # -> Fix incorrect backend purge url when using Language Domains plugin
 ^ -> Move language files to own folders
 # -> Fix article url detection on save
+# -> Trigger plugin only on html docs
 
 -------------------- 0.0.2 Release [07-Nov-2016] ------------------
 + -> Purge cache after menu change
