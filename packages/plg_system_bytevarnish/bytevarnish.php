@@ -134,32 +134,27 @@ class PlgSystemByteVarnish extends JPlugin
 		if ($context == 'com_content.article')
 		{
 			// Get the menu items
-			$items = $menu->getMenu();
+			$menus = $menu->getMenu();
 
 			// Always purge homepage
-			$itemIds[] = $menu->getDefault()->id;
+			$itemIds[$menu->getDefault()->id] = 'home';
 
 			// Loop through menu items
-			foreach ($items as $item)
+			foreach ($menus as $menuitem)
 			{
 				// Get all com_content items
-				if (strpos($item->link, 'option=com_content') !== false)
+				if (strpos($menuitem->link, 'option=com_content') !== false)
 				{
-					// Parse the menu link
-					parse_str($item->link, $parts);
-					$view = $parts['view'];
-					$id   = $parts['id'];
-
 					// Retrieve menu items to article
-					if (($view == 'article') && ($id == $item->id))
+					if (($menuitem->query['view'] == 'article') && ($menuitem->query['id'] == $item->id))
 					{
-						$itemIds[$item->id] = $view;
+						$itemIds[$menuitem->id] = $menuitem->query['view'];
 					}
 
 					// Retrieve menu items to category of article
-					if (($view == 'category') && ($id == $item->catid))
+					if (($menuitem->query['view'] == 'category') && ($menuitem->query['id'] == $item->catid))
 					{
-						$itemIds[$item->id] = $view;
+						$itemIds[$menuitem->id] = $menuitem->query['view'];
 					}
 				}
 			}
@@ -183,6 +178,10 @@ class PlgSystemByteVarnish extends JPlugin
 		// Purge the collected menu items
 		foreach ($itemIds as $itemId => $type)
 		{
+			// Purge menu item
+			$page = $this->route($itemId);
+			$this->purge($page);
+
 			// Purge article view in category
 			if ($type == 'category')
 			{
@@ -190,10 +189,6 @@ class PlgSystemByteVarnish extends JPlugin
 				$page   = $this->route($itemId, $suffix);
 				$this->purge($page);
 			}
-
-			// Purge menu item
-			$page = $this->route($itemId);
-			$this->purge($page);
 		}
 	}
 
