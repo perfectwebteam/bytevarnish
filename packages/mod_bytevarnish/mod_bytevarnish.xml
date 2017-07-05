@@ -13,13 +13,8 @@
 
     <files>
         <filename module="mod_bytevarnish">mod_bytevarnish.php</filename>
+        <folder>language</folder>
         <folder>tmpl</folder>
     </files>
 
-    <languages folder="language">
-        <language tag="en-GB">en-GB/en-GB.mod_bytevarnish.ini</language>
-        <language tag="en-GB">en-GB/en-GB.mod_bytevarnish.sys.ini</language>
-        <language tag="nl-NL">nl-NL/nl-NL.mod_bytevarnish.ini</language>
-        <language tag="nl-NL">nl-NL/nl-NL.mod_bytevarnish.sys.ini</language>
-    </languages>
 </extension>
