@@ -11,7 +11,7 @@ $ -> Language fix or change
 - -> Removed
 ! -> Note
 
--------------------- 0.0.3 Release [XX-YYY-2017] ------------------
+-------------------- 0.0.3 Release [06-Jul-2017] ------------------
 # -> Fix incorrect backend purge url when using Language Domains plugin
 ^ -> Move language files to own folders
 # -> Fix article url detection on save
