@@ -2,12 +2,12 @@
 <extension version="3.3" type="module" method="upgrade" client="administrator">
     <name>MOD_BYTEVARNISH</name>
     <author>Perfect Web Team - Sander Potjer</author>
-    <creationDate>November 2016</creationDate>
+    <creationDate>2017-07-06</creationDate>
     <copyright>Copyright (C) 2015-2017. All rights reserved.</copyright>
     <license>GNU General Public License version 3 or later</license>
     <authorEmail>hallo@perfectwebteam.nl</authorEmail>
     <authorUrl>www.perfectwebteam.nl</authorUrl>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <description>MOD_BYTEVARNISH_XML_DESCRIPTION</description>
     <scriptfile>script.php</scriptfile>
 
