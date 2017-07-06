@@ -3,7 +3,7 @@
  * Byte.nl Varnish for Joomla!
  *
  * @author     Perfect Web Team - Sander Potjer <hallo@perfectwebteam.nl>
- * @copyright  Copyright (C) 2015. All rights reserved.
+ * @copyright  Copyright (C) 2015-2017. All rights reserved.
  * @license    GNU Public License version 3 or later
  * @link       http://www.perfectwebteam.nl
  */
@@ -25,10 +25,12 @@ class PlgSystemByteVarnish extends JPlugin
 	public function onBeforeRender()
 	{
 		$app   = JFactory::getApplication();
+		$doc   = JFactory::getDocument()->getType();
+		$user  = JFactory::getUser();
 		$input = $app->input;
 
 		// Perform these actions in frontend only
-		if ($app->isSite())
+		if ($app->isSite() && $doc == 'html')
 		{
 			// Override Joomla Caching headers
 			JResponse::allowCache(true);
@@ -38,6 +40,14 @@ class PlgSystemByteVarnish extends JPlugin
 
 			// If disabled, set header to no-cache and return
 			if (!$enabled)
+			{
+				JResponse::setHeader('Cache-Control', 'no-cache', true);
+
+				return false;
+			}
+
+			// Prevent pages from logged-in users ending up in cache
+			if (!$user->guest)
 			{
 				JResponse::setHeader('Cache-Control', 'no-cache', true);
 
@@ -75,7 +85,7 @@ class PlgSystemByteVarnish extends JPlugin
 		}
 
 		// Perform these actions in backend only, and if logged in
-		if ($app->isAdmin() && JFactory::getUser()->id)
+		if ($app->isAdmin() && $doc == 'html' && JFactory::getUser()->id)
 		{
 			$varnish = $input->get('varnish', '');
 
@@ -134,32 +144,27 @@ class PlgSystemByteVarnish extends JPlugin
 		if ($context == 'com_content.article')
 		{
 			// Get the menu items
-			$items = $menu->getMenu();
+			$menus = $menu->getMenu();
 
 			// Always purge homepage
-			$itemIds[] = $menu->getDefault()->id;
+			$itemIds[$menu->getDefault()->id] = 'home';
 
 			// Loop through menu items
-			foreach ($items as $item)
+			foreach ($menus as $menuitem)
 			{
 				// Get all com_content items
-				if (strpos($item->link, 'option=com_content') !== false)
+				if (strpos($menuitem->link, 'option=com_content') !== false)
 				{
-					// Parse the menu link
-					parse_str($item->link, $parts);
-					$view = $parts['view'];
-					$id   = $parts['id'];
-
 					// Retrieve menu items to article
-					if (($view == 'article') && ($id == $item->id))
+					if (($menuitem->query['view'] == 'article') && ($menuitem->query['id'] == $item->id))
 					{
-						$itemIds[$item->id] = $view;
+						$itemIds[$menuitem->id] = $menuitem->query['view'];
 					}
 
 					// Retrieve menu items to category of article
-					if (($view == 'category') && ($id == $item->catid))
+					if (($menuitem->query['view'] == 'category') && ($menuitem->query['id'] == $item->catid))
 					{
-						$itemIds[$item->id] = $view;
+						$itemIds[$menuitem->id] = $menuitem->query['view'];
 					}
 				}
 			}
@@ -183,6 +188,10 @@ class PlgSystemByteVarnish extends JPlugin
 		// Purge the collected menu items
 		foreach ($itemIds as $itemId => $type)
 		{
+			// Purge menu item
+			$page = $this->route($itemId);
+			$this->purge($page);
+
 			// Purge article view in category
 			if ($type == 'category')
 			{
@@ -190,10 +199,6 @@ class PlgSystemByteVarnish extends JPlugin
 				$page   = $this->route($itemId, $suffix);
 				$this->purge($page);
 			}
-
-			// Purge menu item
-			$page = $this->route($itemId);
-			$this->purge($page);
 		}
 	}
 

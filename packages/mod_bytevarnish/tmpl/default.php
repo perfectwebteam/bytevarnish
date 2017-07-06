@@ -3,7 +3,7 @@
  * Byte.nl Varnish for Joomla!
  *
  * @author     Perfect Web Team - Sander Potjer <hallo@perfectwebteam.nl>
- * @copyright  Copyright (C) 2015. All rights reserved.
+ * @copyright  Copyright (C) 2015-2017. All rights reserved.
  * @license    GNU Public License version 3 or later
  * @link       http://www.perfectwebteam.nl
  */
