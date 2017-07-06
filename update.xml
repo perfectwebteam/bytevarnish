@@ -3,7 +3,7 @@
     <update>
         <name>Byte Varnish</name>
         <description>Byte.nl Varnish Extensions</description>
-        <element>com_aclmanager</element>
+        <element>pkg_bytevarnish</element>
         <type>package</type>
         <version>0.0.3</version>
         <infourl title="Byte Varnish">https://github.com/perfectwebteam/bytevarnish/releases</infourl>
@@ -22,7 +22,7 @@
     <update>
         <name>Byte Varnish</name>
         <description>Byte.nl Varnish Extensions</description>
-        <element>com_aclmanager</element>
+        <element>pkg_bytevarnish</element>
         <type>package</type>
         <version>0.0.2</version>
         <infourl title="Byte Varnish">https://github.com/perfectwebteam/bytevarnish/releases</infourl>
