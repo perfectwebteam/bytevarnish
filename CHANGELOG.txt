@@ -17,6 +17,7 @@ $ -> Language fix or change
 # -> Fix article url detection on save
 # -> Trigger plugin only on html docs
 # -> Prevent pages from logged-in users ending up in cache
++ -> Adding support for Update Server
 
 -------------------- 0.0.2 Release [07-Nov-2016] ------------------
 + -> Purge cache after menu change

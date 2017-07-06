@@ -15,4 +15,8 @@
         <file type="module" id="mod_bytevarnish">mod_bytevarnish.zip</file>
         <file type="plugin" id="plg_system_bytevarnish" group="system">plg_system_bytevarnish.zip</file>
     </files>
+
+    <updateservers>
+        <server type="extension" priority="2" name="Byte Varnish">https://raw.githubusercontent.com/perfectwebteam/bytevarnish/master/update.xml</server>
+    </updateservers>
 </extension>
